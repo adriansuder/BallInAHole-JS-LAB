@@ -1,9 +1,8 @@
 let ctx
-let x=100
-let y=200
 let canvaWidth = window.innerWidth
 let canvaHeight = window.innerHeight
-
+let x=Math.floor(Math.random() * canvaWidth-10)
+let y=Math.floor(Math.random() * canvaHeight-10)
 function initGame(){
     ctx = canva.getContext('2d')
     ctx.canvas.width = canvaWidth
@@ -40,8 +39,10 @@ function moveBall(){
         Y=(Y*h)/1000
         let hY = Y
         let hX = X
-        x = hX
-        y= hY
+        // x = hX
+        // y= hY
+        x=acc.x
+        y=acc.y
     }, false)
 }
 }
