@@ -1,18 +1,18 @@
 let ctx
 let x=100
 let y=200
-let dx=5
-let dy=5
+let canvaWidth = window.innerWidth
+let canvaHeight = window.innerHeight
 
 function initGame(){
     ctx = canva.getContext('2d')
-    ctx.canvas.width = window.innerWidth
-    ctx.canvas.height = window.innerHeight
+    ctx.canvas.width = canvaWidth
+    ctx.canvas.height = canvaHeight
     setInterval(moveBall,10)
 
 }
 function moveBall(){
-    ctx.clearRect(0,0, 1000,500)
+    ctx.clearRect(0,0, canvaWidth,canvaHeight)
     ctx.beginPath()
     ctx.fillStyle="#0000ff"
     // Draws a circle of radius 20 at the coordinates x,y on the canvas
