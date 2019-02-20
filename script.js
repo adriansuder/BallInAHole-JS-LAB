@@ -9,7 +9,7 @@ function initGame(){
     setInterval(moveBall,10)
 }
 function moveBall(){
-    ctx.clearRect(0,0, 300,300)
+    ctx.clearRect(0,0, 1000,500)
     ctx.beginPath()
     ctx.fillStyle="#0000ff"
     // Draws a circle of radius 20 at the coordinates 100,100 on the canvas
@@ -17,8 +17,8 @@ function moveBall(){
     ctx.closePath()
     ctx.fill()
     //odbijanie od scian
-    if( x<0 || x>300) dx=-dx
-    if( y<0 || y>300) dy=-dy
+    if( x<0 || x>1000) dx=-dx
+    if( y<0 || y>500) dy=-dy
     x+=dx
     y+=dy
 }
