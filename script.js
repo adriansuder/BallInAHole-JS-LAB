@@ -6,7 +6,10 @@ let dy=5
 
 function initGame(){
     ctx = canva.getContext('2d')
+    ctx.canvas.width = window.innerWidth
+    ctx.canvas.height = window.innerHeight
     setInterval(moveBall,10)
+
 }
 function moveBall(){
     ctx.clearRect(0,0, 1000,500)
