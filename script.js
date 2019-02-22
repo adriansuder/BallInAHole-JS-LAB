@@ -1,47 +1,62 @@
 let ctx
 let canvaWidth = window.innerWidth
 let canvaHeight = window.innerHeight
-let x=Math.floor(Math.random() * canvaWidth-20)
-let y=Math.floor(Math.random() * canvaHeight-20)
-let xHole = 150
-let yHole = 300
+let x=Math.floor(Math.random() * canvaWidth-20)//entity1.x
+let y=Math.floor(Math.random() * canvaHeight-20)//entity1.y
+let xHole = 150 //entity2.x
+let yHole = 300//entity2.y
 let dx = 2
 let dy = -2
+let timeStart, timeEnd, result
+let playing = false
+
+document.querySelector('#start').addEventListener('click',initGame)
 function initGame(){
     ctx = canva.getContext('2d')
     ctx.canvas.width = canvaWidth
     ctx.canvas.height = canvaHeight
     setInterval(moveBall,10)
-    
+    timeStart = Date.now()
+    playing = true
 }
+//sprawdzanie kolizji
+function checkCollision(entity1x,entity1y,entity2x,entity2y) {
+    if(!(entity1x + 10 < entity2x ||
+             entity2x + 20 < entity1x ||
+             entity1y + 10 < entity2y ||
+             entity2y + 20 < entity1y)==true){
+                result=(Date.now()-timeStart)/1000
+                if(!alert('Wygrałeś! Twój czas wyniósł: '+result)){window.location.reload();}
+             }
+  }
+
 //dodanie dołka, poruszanie go i odbijanie od scian
 function addHoles(){
     ctx.beginPath()
     ctx.fillStyle="#FFF"
-    ctx.arc(xHole,yHole,30,0,Math.PI*2,true)
+    ctx.arc(xHole,yHole,20,0,Math.PI*2,true)
     ctx.closePath()
     ctx.fill()
         //odbijanie od scian
-    if(xHole + dx > canva.width-30 || xHole + dx < 30){
+    if(xHole + dx > canva.width-20 || xHole + dx < 20){
         dx = -dx
     }
-    if(yHole + dy > canva.height-30 || yHole + dy < 30){
+    if(yHole + dy > canva.height-20 || yHole + dy < 20){
         dy = -dy
     }    
     xHole += dx;
     yHole += dy;
-    
 }
+//poruszanie kulka, czyszczenie, aby nie zostawal slad za kulka
 function moveBall(){
     ctx.clearRect(0,0, canvaWidth,canvaHeight)
     ctx.beginPath()
     ctx.fillStyle="#0000ff"
-    // Draws a circle of radius 20 at the coordinates x,y on the canvas
-    ctx.arc(x,y,20,0,Math.PI*2,true) 
+    ctx.arc(x,y,10,0,Math.PI*2,true) 
     ctx.closePath()
     ctx.fill()
     addHoles()
-
+    checkCollision(x,y,xHole,yHole)
     if (window.DeviceMotionEvent) {
     window.addEventListener('devicemotion', function(ev) {
         let h = document.documentElement.clientHeight
