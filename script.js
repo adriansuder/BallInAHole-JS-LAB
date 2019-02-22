@@ -1,14 +1,28 @@
 let ctx
 let canvaWidth = window.innerWidth
 let canvaHeight = window.innerHeight
-let x=Math.floor(Math.random() * canvaWidth-10)
-let y=Math.floor(Math.random() * canvaHeight-10)
+let x=Math.floor(Math.random() * canvaWidth-20)
+let y=Math.floor(Math.random() * canvaHeight-20)
+let xHole = 150
+let yHole = 300
 function initGame(){
     ctx = canva.getContext('2d')
     ctx.canvas.width = canvaWidth
     ctx.canvas.height = canvaHeight
     setInterval(moveBall,10)
-
+    
+}
+function addHoles(){
+    ctx.beginPath()
+    ctx.fillStyle="#FFF"
+    ctx.arc(xHole,yHole,30,0,Math.PI*2,true)
+    ctx.closePath()
+    ctx.fill()
+        //odbijanie od scian
+    if( xHole<0 || xHole>canvaWidth) dx=-dx
+    if( y<0 || y>canvaHeight) dy=-dy
+    xHole+=dx
+    yHole+=dy
 }
 function moveBall(){
     ctx.clearRect(0,0, canvaWidth,canvaHeight)
@@ -18,11 +32,8 @@ function moveBall(){
     ctx.arc(x,y,20,0,Math.PI*2,true) 
     ctx.closePath()
     ctx.fill()
-    //odbijanie od scian
-    // if( x<0 || x>1000) dx=-dx
-    // if( y<0 || y>500) dy=-dy
-    // x+=dx
-    // y+=dy
+    addHoles()
+
     if (window.DeviceMotionEvent) {
     window.addEventListener('devicemotion', function(ev) {
         let h = document.documentElement.clientHeight
@@ -39,10 +50,8 @@ function moveBall(){
         Y=(Y*h)/1000
         let hY = Y
         let hX = X
-        // x = hX
-        // y= hY
-        x=acc.x
-        y=acc.y
+        x = hX
+        y= hY
     }, false)
 }
 }
