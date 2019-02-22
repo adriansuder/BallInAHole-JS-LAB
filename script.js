@@ -5,6 +5,8 @@ let x=Math.floor(Math.random() * canvaWidth-20)
 let y=Math.floor(Math.random() * canvaHeight-20)
 let xHole = 150
 let yHole = 300
+let dx = 2
+let dy = -2
 function initGame(){
     ctx = canva.getContext('2d')
     ctx.canvas.width = canvaWidth
@@ -12,6 +14,7 @@ function initGame(){
     setInterval(moveBall,10)
     
 }
+//dodanie dołka, poruszanie go i odbijanie od scian
 function addHoles(){
     ctx.beginPath()
     ctx.fillStyle="#FFF"
@@ -19,10 +22,15 @@ function addHoles(){
     ctx.closePath()
     ctx.fill()
         //odbijanie od scian
-    if( xHole<0 || xHole>canvaWidth) dx=-dx
-    if( y<0 || y>canvaHeight) dy=-dy
-    xHole+=dx
-    yHole+=dy
+    if(xHole + dx > canva.width-30 || xHole + dx < 30){
+        dx = -dx
+    }
+    if(yHole + dy > canva.height-30 || yHole + dy < 30){
+        dy = -dy
+    }    
+    xHole += dx;
+    yHole += dy;
+    
 }
 function moveBall(){
     ctx.clearRect(0,0, canvaWidth,canvaHeight)
