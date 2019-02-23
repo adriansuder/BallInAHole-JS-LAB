@@ -5,7 +5,7 @@ let x=Math.floor(Math.random() * canvaWidth-20)//entity1.x
 let y=Math.floor(Math.random() * canvaHeight-20)//entity1.y
 let xHole = 150 //entity2.x
 let yHole = 300//entity2.y
-let dx = 2
+let dx = -2
 let dy = -2
 let timeStart, timeEnd, result
 let playing = false
@@ -16,6 +16,7 @@ function initGame(){
     ctx.canvas.width = canvaWidth
     ctx.canvas.height = canvaHeight
     setInterval(moveBall,10)
+    setInterval(randomMovement,1000)
     timeStart = Date.now()
     playing = true
 }
@@ -46,6 +47,12 @@ function addHoles(){
     }    
     xHole += dx;
     yHole += dy;
+}
+function randomMovement(){
+    dx=Math.floor(Math.random() * 6)-5
+    dy=Math.floor(Math.random() * 6)-5
+    console.log(dx,dy)
+
 }
 //poruszanie kulka, czyszczenie, aby nie zostawal slad za kulka
 function moveBall(){
